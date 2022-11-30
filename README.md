@@ -1,4 +1,4 @@
-## some requests (GET, POST, PUT, DELETE) made by me
+## Some requests (GET, POST, PUT, DELETE) made by me
 
 ### Link to collection
 
