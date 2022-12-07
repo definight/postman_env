@@ -1,0 +1,146 @@
+{
+	"info": {
+		"_postman_id": "2520338b-7efe-4404-b892-4e607e6e7657",
+		"name": "Diplom API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16776627"
+	},
+	"item": [
+		{
+			"name": "request info",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "skillboxadmin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "iamfinallytester",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://intershop3.skillbox.ru/api/products/6",
+					"protocol": "http",
+					"host": [
+						"intershop3",
+						"skillbox",
+						"ru"
+					],
+					"path": [
+						"api",
+						"products",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create title",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "skillboxadmin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "iamfinallytester",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\": \"VIP Modular Wheels\",  // наименование товара\r\n\"slug\": \"vip-modular-wheels\", // permalink на товар\r\n\"manage_stock\": true, // флаг управляющий остатками\r\n\"stock_quantity\": \"1\", // количество товаров на складе\r\n\"description\": \"Sick wheels buy ASAP\", // описание товара\r\n\"price\": 70000, // цена за товар\r\n\"regular_price\": \"70000\", // цена без скидки\r\n\"sale_price\": \"69999\", // цена с учетом скидки\r\n\"images\": [\r\n\t{\r\n\t\t\"src\": \"https://www.fm-wheels.com/image/cache/catalog/Stock%20rims%20VIP/Bespoke%201%20piece/vip-modular-vrc-110-1-945x945.jpg\" // ссылка на изображение\r\n\t}],\r\n\"categories\": [\r\n\t{\r\n\t\t\"id\": 82, // идентификационный номер категории\r\n\t\t\"name\": \"Диски\", // название категории\r\n\t\t\"slug\": \"wheels\" // permalink на группу\r\n\t}]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://intershop3.skillbox.ru/api/products",
+					"protocol": "http",
+					"host": [
+						"intershop3",
+						"skillbox",
+						"ru"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit item",
+			"request": {
+				"method": "PUT",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "delete item",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "iamfinallytester",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "skillboxadmin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://intershop3.skillbox.ru/api/products/62353",
+					"protocol": "http",
+					"host": [
+						"intershop3",
+						"skillbox",
+						"ru"
+					],
+					"path": [
+						"api",
+						"products",
+						"62353"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
