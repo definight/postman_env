@@ -1,146 +1,344 @@
 {
 	"info": {
-		"_postman_id": "2520338b-7efe-4404-b892-4e607e6e7657",
-		"name": "Diplom API",
+		"_postman_id": "ec69a7b0-ce44-4ccd-9924-2dedd44c6ba1",
+		"name": "Petstore_Alexey",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "16776627"
 	},
 	"item": [
 		{
-			"name": "request info",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
+			"name": "pet",
+			"item": [
+				{
+					"name": "Add a new pet to the store",
+					"event": [
 						{
-							"key": "username",
-							"value": "skillboxadmin",
-							"type": "string"
-						},
-						{
-							"key": "password",
-							"value": "iamfinallytester",
-							"type": "string"
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 2000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+									"});\r",
+									"var responseBody = pm.response.text();\r",
+									"pm.environment.set('petid', responseBody.slice(6, 25));\r",
+									"\r",
+									"pm.test(\"Body contains valid name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Bark-Bark\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body contains valid Tag ID value\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.tags[0].id).to.eql(10);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://intershop3.skillbox.ru/api/products/6",
-					"protocol": "http",
-					"host": [
-						"intershop3",
-						"skillbox",
-						"ru"
 					],
-					"path": [
-						"api",
-						"products",
-						"6"
-					]
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 0,\r\n    \"category\": {\r\n        \"id\": 10,\r\n        \"name\": \"dogs\"\r\n    },\r\n    \"name\": \"Bark-Bark\",\r\n    \"photoUrls\": [\r\n        \"testurl1\",\r\n\t  \t\"testurl2\"\r\n    ],\r\n    \"tags\": [\r\n        {\r\n            \"id\": 10,\r\n            \"name\": \"скидка5%\"\r\n        },\r\n\t  \t{\r\n            \"id\": 20,\r\n            \"name\": \"скидка10%\"\r\n        }\r\n    ],\r\n    \"status\": \"available\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/pet",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"pet"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{petid}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find pet by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 2000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+									"});\r",
+									"pm.test(\"Body contains valid name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Bark-Bark\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/pet/{{petid}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"pet",
+								"{{petid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update an existing pet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 2000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+									"});\r",
+									"pm.test(\"Body contains valid name\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Bark-Bark\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{petid}},\r\n  \"category\": {\r\n    \"id\": 14,\r\n    \"name\": \"Dogs\"\r\n  },\r\n  \"name\": \"Bark-Bark\",\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/pet",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"pet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletes a pet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 2000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/pet/{{petid}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"pet",
+								"{{petid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find pet by ID (after delete)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 2000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+									"});\r",
+									"pm.test(\"Body contains correct message\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Pet not found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/pet/{{petid}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"pet",
+								"{{petid}}"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Create title",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "username",
-							"value": "skillboxadmin",
-							"type": "string"
+			"name": "store",
+			"item": [
+				{
+					"name": "Returns pet inventories by status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/store/inventory",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"store",
+								"inventory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find purchase order by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/store/order/90011",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"store",
+								"order",
+								"90011"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete purchase order by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/store/order/90011",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"store",
+								"order",
+								"90011"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Place an order for a pet",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 90011,\r\n  \"petId\": 0,\r\n  \"quantity\": 0,\r\n  \"shipDate\": \"2023-06-01T10:16:25.575Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						{
-							"key": "password",
-							"value": "iamfinallytester",
-							"type": "string"
+						"url": {
+							"raw": "{{baseurl}}/store/order/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"store",
+								"order",
+								""
+							]
 						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\"name\": \"VIP Modular Wheels\",  // наименование товара\r\n\"slug\": \"vip-modular-wheels\", // permalink на товар\r\n\"manage_stock\": true, // флаг управляющий остатками\r\n\"stock_quantity\": \"1\", // количество товаров на складе\r\n\"description\": \"Sick wheels buy ASAP\", // описание товара\r\n\"price\": 70000, // цена за товар\r\n\"regular_price\": \"70000\", // цена без скидки\r\n\"sale_price\": \"69999\", // цена с учетом скидки\r\n\"images\": [\r\n\t{\r\n\t\t\"src\": \"https://www.fm-wheels.com/image/cache/catalog/Stock%20rims%20VIP/Bespoke%201%20piece/vip-modular-vrc-110-1-945x945.jpg\" // ссылка на изображение\r\n\t}],\r\n\"categories\": [\r\n\t{\r\n\t\t\"id\": 82, // идентификационный номер категории\r\n\t\t\"name\": \"Диски\", // название категории\r\n\t\t\"slug\": \"wheels\" // permalink на группу\r\n\t}]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://intershop3.skillbox.ru/api/products",
-					"protocol": "http",
-					"host": [
-						"intershop3",
-						"skillbox",
-						"ru"
-					],
-					"path": [
-						"api",
-						"products"
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		},
 		{
-			"name": "edit item",
-			"request": {
-				"method": "PUT",
-				"header": []
-			},
-			"response": []
-		},
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
 		{
-			"name": "delete item",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "iamfinallytester",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "skillboxadmin",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://intershop3.skillbox.ru/api/products/62353",
-					"protocol": "http",
-					"host": [
-						"intershop3",
-						"skillbox",
-						"ru"
-					],
-					"path": [
-						"api",
-						"products",
-						"62353"
-					]
-				}
-			},
-			"response": []
+			"key": "baseurl",
+			"value": "",
+			"type": "string"
 		}
 	]
 }
